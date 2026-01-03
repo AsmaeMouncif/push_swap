@@ -47,24 +47,36 @@ static int	count_valid_args(char **split_args)
 	return (count);
 }
 
-int	process_multiple_args(t_node **stack_a, char **av, int ac)
+static int	process_single_argument(t_node **stack_a, char *arg)
 {
 	char	**split_args;
 	int		result;
 
-	if (ac == 2)
+	split_args = ft_split(arg, ' ');
+	if (split_args == NULL)
+		return (0);
+	if (count_valid_args(split_args) == 0)
 	{
-		split_args = ft_split(av[1], ' ');
-		if (split_args == NULL)
-			return (0);
-		if (count_valid_args(split_args) == 0)
-		{
-			free_split(split_args);
-			return (0);
-		}
-		result = process_arguments(stack_a, split_args, 0);
 		free_split(split_args);
-		return (result);
+		return (0);
 	}
-	return (process_arguments(stack_a, av, 1));
+	result = process_arguments(stack_a, split_args, 0);
+	free_split(split_args);
+	return (result);
+}
+
+int	process_multiple_args(t_node **stack_a, char **av, int ac)
+{
+	int	i;
+
+	if (ac == 2)
+		return (process_single_argument(stack_a, av[1]));
+	i = 1;
+	while (i < ac)
+	{
+		if (!process_single_argument(stack_a, av[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }
