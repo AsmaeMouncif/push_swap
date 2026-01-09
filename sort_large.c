@@ -6,7 +6,7 @@
 /*   By: asmounci <asmounci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 19:11:05 by asmounci          #+#    #+#             */
-/*   Updated: 2025/12/29 17:00:00 by asmounci         ###   ########.fr       */
+/*   Updated: 2026/01/08 18:46:19 by asmounci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	smart_push_to_b(t_node **stack_a, t_node **stack_b,
 static void	push_remaining_to_b(t_node **stack_a, t_node **stack_b,
 	int *size_a, int *size_b)
 {
-	while (*size_a > SORT_THREE_THRESHOLD)
+	while (*size_a > 3)
 	{
 		pb(stack_a, stack_b);
 		(*size_a)--;
@@ -89,7 +89,7 @@ void	sort_large(t_node **stack_a, t_node **stack_b)
 	if (stack_a == NULL || *stack_a == NULL)
 		return ;
 	size_a = count_nodes(*stack_a);
-	if (size_a <= SORT_FIVE_THRESHOLD)
+	if (size_a <= 5)
 	{
 		if (size_a == 3)
 			sort_3(stack_a);

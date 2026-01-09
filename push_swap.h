@@ -6,7 +6,7 @@
 /*   By: asmounci <asmounci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 16:09:31 by asmounci          #+#    #+#             */
-/*   Updated: 2025/12/29 17:08:34 by asmounci         ###   ########.fr       */
+/*   Updated: 2026/01/08 18:05:30 by asmounci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
-
-# define SORT_THREE_THRESHOLD 3
-# define SORT_FIVE_THRESHOLD 5
 
 typedef struct s_node
 {

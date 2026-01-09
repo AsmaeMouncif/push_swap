@@ -6,38 +6,11 @@
 /*   By: asmounci <asmounci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 16:07:29 by asmounci          #+#    #+#             */
-/*   Updated: 2025/12/29 17:00:00 by asmounci         ###   ########.fr       */
+/*   Updated: 2026/01/07 19:17:44 by asmounci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static int	check_overflow(long result, int sign, char digit)
-{
-	if (sign == 1 && (result > LONG_MAX / 10
-			|| (result == LONG_MAX / 10
-				&& (digit - '0') > LONG_MAX % 10)))
-		return (1);
-	if (sign == -1 && (result > -(LONG_MIN / 10)
-			|| (result == -(LONG_MIN / 10)
-				&& (digit - '0') > -(LONG_MIN % 10))))
-		return (1);
-	return (0);
-}
-
-static void	init_atoi(const char *str, int *i, int *sign)
-{
-	*i = 0;
-	*sign = 1;
-	while (str[*i] == ' ' || (str[*i] >= 9 && str[*i] <= 13))
-		(*i)++;
-	if (str[*i] == '+' || str[*i] == '-')
-	{
-		if (str[*i] == '-')
-			*sign = -1;
-		(*i)++;
-	}
-}
 
 long	ft_atoi_long(const char *str)
 {
@@ -45,16 +18,19 @@ long	ft_atoi_long(const char *str)
 	int		sign;
 	long	result;
 
+	i = 0;
+	sign = 1;
 	result = 0;
-	init_atoi(str, &i, &sign);
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		if (check_overflow(result, sign, str[i]))
-		{
-			if (sign == 1)
-				return (LONG_MAX);
-			return (LONG_MIN);
-		}
+		if (result > INT_MAX)
+			return result;
 		result = result * 10 + (str[i++] - '0');
 	}
 	return (result * sign);

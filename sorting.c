@@ -6,7 +6,7 @@
 /*   By: asmounci <asmounci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 16:08:28 by asmounci          #+#    #+#             */
-/*   Updated: 2025/12/29 17:00:00 by asmounci         ###   ########.fr       */
+/*   Updated: 2026/01/09 16:24:43 by asmounci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	sort_5(t_node **stack_a, t_node **stack_b)
 	int	min_pos;
 
 	size = count_nodes(*stack_a);
-	while (size > SORT_THREE_THRESHOLD)
+	while (size > 3)
 	{
 		min_pos = find_min_index(*stack_a);
 		if (min_pos == -1)

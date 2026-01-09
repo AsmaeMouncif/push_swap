@@ -6,7 +6,7 @@
 /*   By: asmounci <asmounci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 16:15:00 by asmounci          #+#    #+#             */
-/*   Updated: 2025/12/29 17:00:00 by asmounci         ###   ########.fr       */
+/*   Updated: 2026/01/07 20:34:36 by asmounci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ static int	check_sign(char *str, int *i)
 	int	sign_count;
 
 	sign_count = 0;
-	while (str[*i] == ' ' || (str[*i] >= 9 && str[*i] <= 13))
-		(*i)++;
 	if (str[*i] == '\0')
 		return (0);
 	if (str[*i] == '+' || str[*i] == '-')
@@ -47,23 +45,13 @@ static int	check_sign(char *str, int *i)
 
 static int	validate_digits(char *str, int i)
 {
-	int	has_digit;
-
-	has_digit = 0;
-	while (str[i] != '\0' && str[i] != ' ' && !(str[i] >= 9 && str[i] <= 13))
+	while (str[i] != '\0') 
 	{
 		if (!ft_isdigit(str[i]))
 			return (0);
-		has_digit = 1;
 		i++;
 	}
-	while (str[i] != '\0')
-	{
-		if (str[i] != ' ' && !(str[i] >= 9 && str[i] <= 13))
-			return (0);
-		i++;
-	}
-	return (has_digit);
+	return (1);
 }
 
 int	validate_argument(char *str)
