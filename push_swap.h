@@ -6,7 +6,7 @@
 /*   By: asmounci <asmounci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 16:09:31 by asmounci          #+#    #+#             */
-/*   Updated: 2026/01/08 18:05:30 by asmounci         ###   ########.fr       */
+/*   Updated: 2026/01/12 14:42:21 by asmounci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,13 @@ typedef struct s_node
 
 typedef struct s_cost
 {
-	int	cost_b;
-	int	cost_a;
-	int	total;
-	int	target_idx;
-	int	dir_a;
-	int	dir_b;
+	int	n_rotation_b;
+	int	n_rotation_a;
+	int	total_cost;
+	int	position_index;
+	int	direction_a;
+	int	direction_b;
 }	t_cost;
-
-typedef struct s_cheapest_ctx
-{
-	t_node	*stack_a;
-	t_node	*stack_b;
-	int		size_a;
-	int		size_b;
-}	t_cheapest_ctx;
 
 long	ft_atoi_long(const char *str);
 int		ft_isdigit(int c);
@@ -90,14 +82,16 @@ void	sort_5(t_node **stack_a, t_node **stack_b);
 void	sort_large(t_node **stack_a, t_node **stack_b);
 int		find_target_index(t_node *stack_a, int value_b);
 int		get_cost(int index, int size);
-int		calc_total_cost(int idx_b, int idx_a, int size_b, int size_a);
+int		calc_total_cost(int n_rotation_b, int n_rotation_a, int dir_b, int dir_a);
 void	rotate_both(t_node **stack_a, t_node **stack_b, t_cost *cost, int dir);
 void	bubble_sort_array(int *arr, int size);
-int		find_cheapest_move(t_cheapest_ctx ctx, t_cost *best);
+int		find_min_cost_move(t_node *stack_a, t_node *stack_b,
+			int size_a, int size_b, t_cost *best);
 void	do_rotate(t_node **stack_a, t_node **stack_b, t_cost *cost);
-void	execute_cheapest_move(t_node **stack_a, t_node **stack_b,
+void	move_min_cost(t_node **stack_a, t_node **stack_b,
 			int size_a, int size_b);
-int		get_median_value(t_node *stack, int size);
+int		get_median_value(t_node *stack, int size,
+			t_node **stack_a, t_node **stack_b);
 void	final_rotation(t_node **stack_a);
 
 #endif

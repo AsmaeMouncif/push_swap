@@ -6,40 +6,41 @@
 /*   By: asmounci <asmounci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 17:00:00 by asmounci          #+#    #+#             */
-/*   Updated: 2025/12/29 17:00:00 by asmounci         ###   ########.fr       */
+/*   Updated: 2026/01/12 13:22:27 by asmounci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	calc_move_cost(t_cheapest_ctx ctx, t_cost *temp, int i)
+static void	calc_move_cost(t_node *stack_a, t_node *stack_b,
+	t_cost *temp, int i, int size_a, int size_b)
 {
-	temp->target_idx = find_target_index(ctx.stack_a, ctx.stack_b->value);
-	temp->cost_b = get_cost(i, ctx.size_b);
-	temp->cost_a = get_cost(temp->target_idx, ctx.size_a);
-	temp->dir_b = (i * 2 < ctx.size_b);
-	temp->dir_a = (temp->target_idx * 2 < ctx.size_a);
-	temp->total = calc_total_cost(i, temp->target_idx,
-			ctx.size_b, ctx.size_a);
+	temp->position_index = find_target_index(stack_a, stack_b->value);
+	temp->n_rotation_b = get_cost(i, size_b);
+	temp->n_rotation_a = get_cost(temp->position_index, size_a);
+	temp->direction_b = (i * 2 < size_b);
+	temp->direction_a = (temp->position_index * 2 < size_a);
+	temp->total_cost = calc_total_cost(temp->n_rotation_b, temp->n_rotation_a,
+			temp->direction_b, temp->direction_a);
 }
 
-int	find_cheapest_move(t_cheapest_ctx ctx, t_cost *best)
+int	find_min_cost_move(t_node *stack_a, t_node *stack_b,
+	int size_a, int size_b, t_cost *best)
 {
 	t_node	*curr;
 	t_cost	temp;
 	int		i;
 	int		min_cost;
 
-	curr = ctx.stack_b;
+	curr = stack_b;
 	min_cost = INT_MAX;
 	i = 0;
-	while (curr && i < ctx.size_b)
+	while (curr && i < size_b)
 	{
-		ctx.stack_b = curr;
-		calc_move_cost(ctx, &temp, i);
-		if (temp.total < min_cost)
+		calc_move_cost(stack_a, curr, &temp, i, size_a, size_b);
+		if (temp.total_cost < min_cost)
 		{
-			min_cost = temp.total;
+			min_cost = temp.total_cost;
 			*best = temp;
 		}
 		curr = curr->next_node;
@@ -50,56 +51,52 @@ int	find_cheapest_move(t_cheapest_ctx ctx, t_cost *best)
 
 void	do_rotate(t_node **stack_a, t_node **stack_b, t_cost *cost)
 {
-	if (cost->dir_a == cost->dir_b)
-		rotate_both(stack_a, stack_b, cost, cost->dir_a);
-	while (cost->cost_a > 0)
+	if (cost->direction_a == cost->direction_b)
+		rotate_both(stack_a, stack_b, cost, cost->direction_a);
+	while (cost->n_rotation_a > 0)
 	{
-		if (cost->dir_a)
+		if (cost->direction_a)
 			ra(stack_a);
 		else
 			rra(stack_a);
-		(cost->cost_a)--;
+		(cost->n_rotation_a)--;
 	}
-	while (cost->cost_b > 0)
+	while (cost->n_rotation_b > 0)
 	{
-		if (cost->dir_b)
+		if (cost->direction_b)
 			rb(stack_b);
 		else
 			rrb(stack_b);
-		(cost->cost_b)--;
+		(cost->n_rotation_b)--;
 	}
 }
 
-void	execute_cheapest_move(t_node **stack_a, t_node **stack_b,
+void	move_min_cost(t_node **stack_a, t_node **stack_b,
 	int size_a, int size_b)
 {
 	t_cost			best_cost;
-	t_cheapest_ctx	ctx;
 
-	if (stack_b == NULL || *stack_b == NULL)
-		return ;
-	ctx.stack_a = *stack_a;
-	ctx.stack_b = *stack_b;
-	ctx.size_a = size_a;
-	ctx.size_b = size_b;
-	if (!find_cheapest_move(ctx, &best_cost))
-		return ;
+	find_min_cost_move(*stack_a, *stack_b, size_a, size_b, &best_cost);
 	do_rotate(stack_a, stack_b, &best_cost);
 	pa(stack_a, stack_b);
 }
 
-int	get_median_value(t_node *stack, int size)
+int	get_median_value(t_node *stack, int size,
+	t_node **stack_a, t_node **stack_b)
 {
 	int		*arr;
 	int		median;
 	t_node	*curr;
 	int		i;
 
-	if (stack == NULL || size <= 0)
-		return (INT_MIN);
 	arr = malloc(sizeof(int) * size);
 	if (!arr)
-		return (INT_MIN);
+	{
+		free_nodes(stack_a);
+		free_nodes(stack_b);
+		write(2, "Error\n", 6);
+		exit(1);
+	}
 	curr = stack;
 	i = 0;
 	while (curr && i < size)

@@ -6,7 +6,7 @@
 /*   By: asmounci <asmounci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 17:00:00 by asmounci          #+#    #+#             */
-/*   Updated: 2025/12/29 17:00:00 by asmounci         ###   ########.fr       */
+/*   Updated: 2026/01/12 14:42:21 by asmounci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	find_target_index(t_node *stack_a, int value_b)
 	int		best;
 	int		idx;
 
-	if (stack_a == NULL)
-		return (-1);
 	curr = stack_a;
 	target = -1;
 	best = INT_MAX;
@@ -42,41 +40,35 @@ int	find_target_index(t_node *stack_a, int value_b)
 
 int	get_cost(int index, int size)
 {
-	if (size == 0)
-		return (0);
 	if (index * 2 < size)
 		return (index);
 	return (size - index);
 }
 
-int	calc_total_cost(int idx_b, int idx_a, int size_b, int size_a)
+int	calc_total_cost(int n_rotation_b, int n_rotation_a, int dir_b, int dir_a)
 {
-	int	cost_b;
-	int	cost_a;
 	int	same_dir;
 
-	cost_b = get_cost(idx_b, size_b);
-	cost_a = get_cost(idx_a, size_a);
-	same_dir = (idx_b * 2 < size_b) == (idx_a * 2 < size_a);
-	if (same_dir)
+	same_dir = (dir_b == dir_a);
+	if (same_dir == 1)
 	{
-		if (cost_b > cost_a)
-			return (cost_b);
-		return (cost_a);
+		if (n_rotation_b > n_rotation_a)
+			return (n_rotation_b);
+		return (n_rotation_a);
 	}
-	return (cost_b + cost_a);
+	return (n_rotation_b + n_rotation_a);
 }
 
 void	rotate_both(t_node **stack_a, t_node **stack_b, t_cost *cost, int dir)
 {
-	while (cost->cost_a > 0 && cost->cost_b > 0)
+	while (cost->n_rotation_a > 0 && cost->n_rotation_b > 0)
 	{
 		if (dir)
 			rr(stack_a, stack_b);
 		else
 			rrr(stack_a, stack_b);
-		(cost->cost_a)--;
-		(cost->cost_b)--;
+		(cost->n_rotation_a)--;
+		(cost->n_rotation_b)--;
 	}
 }
 

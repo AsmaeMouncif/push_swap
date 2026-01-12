@@ -6,7 +6,7 @@
 /*   By: asmounci <asmounci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 16:08:28 by asmounci          #+#    #+#             */
-/*   Updated: 2026/01/09 16:24:43 by asmounci         ###   ########.fr       */
+/*   Updated: 2026/01/10 11:45:46 by asmounci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	sort_2(t_node **head)
 {
-	if (head == NULL || *head == NULL || (*head)->next_node == NULL)
-		return ;
 	if ((*head)->value > (*head)->next_node->value)
 		sa(head);
 }
@@ -50,15 +48,6 @@ void	sort_3(t_node **head)
 	int	second;
 	int	third;
 
-	if (head == NULL || *head == NULL)
-		return ;
-	if ((*head)->next_node == NULL)
-		return ;
-	if ((*head)->next_node->next_node == NULL)
-	{
-		sort_2(head);
-		return ;
-	}
 	first = (*head)->value;
 	second = (*head)->next_node->value;
 	third = (*head)->next_node->next_node->value;
