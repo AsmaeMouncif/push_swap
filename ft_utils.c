@@ -6,7 +6,7 @@
 /*   By: asmounci <asmounci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 16:07:29 by asmounci          #+#    #+#             */
-/*   Updated: 2026/01/07 19:17:44 by asmounci         ###   ########.fr       */
+/*   Updated: 2026/01/13 20:32:00 by asmounci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ long	ft_atoi_long(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		if (result > INT_MAX)
-			return result;
+			return (result);
 		result = result * 10 + (str[i++] - '0');
 	}
 	return (result * sign);

@@ -6,7 +6,7 @@
 /*   By: asmounci <asmounci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 19:11:05 by asmounci          #+#    #+#             */
-/*   Updated: 2026/01/12 16:17:18 by asmounci         ###   ########.fr       */
+/*   Updated: 2026/01/13 20:30:32 by asmounci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,13 @@ static void	push_remaining_to_b(t_node **stack_a, t_node **stack_b,
 static void	push_all_back_to_a(t_node **stack_a, t_node **stack_b,
 	int *size_a, int *size_b)
 {
+	t_cost	cost;
+
 	while (*stack_b != NULL)
 	{
-		move_min_cost(stack_a, stack_b, *size_a, *size_b);
+		cost.size_a = *size_a;
+		cost.size_b = *size_b;
+		move_min_cost(stack_a, stack_b, &cost);
 		(*size_a)++;
 		(*size_b)--;
 	}
@@ -85,7 +89,7 @@ void	sort_large(t_node **stack_a, t_node **stack_b)
 	if (stack_a == NULL || *stack_a == NULL)
 		return ;
 	size_a = count_nodes(*stack_a);
-	median = get_median_value(*stack_a, size_a, stack_a, stack_b);
+	median = get_median_value(*stack_a, stack_a, stack_b, size_a);
 	size_b = 0;
 	push_chunk_to_b(stack_a, stack_b, &size_a, median);
 	size_b = count_nodes(*stack_b);

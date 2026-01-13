@@ -6,7 +6,7 @@
 /*   By: asmounci <asmounci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 16:15:00 by asmounci          #+#    #+#             */
-/*   Updated: 2026/01/07 20:34:36 by asmounci         ###   ########.fr       */
+/*   Updated: 2026/01/13 19:16:10 by asmounci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	check_sign(char *str, int *i)
 
 static int	validate_digits(char *str, int i)
 {
-	while (str[i] != '\0') 
+	while (str[i] != '\0')
 	{
 		if (!ft_isdigit(str[i]))
 			return (0);

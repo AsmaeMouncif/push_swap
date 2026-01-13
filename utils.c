@@ -6,7 +6,7 @@
 /*   By: asmounci <asmounci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 16:08:34 by asmounci          #+#    #+#             */
-/*   Updated: 2026/01/10 11:43:35 by asmounci         ###   ########.fr       */
+/*   Updated: 2026/01/13 17:52:56 by asmounci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	find_min_index(t_node *head)
 	return (min_index);
 }
 
-void	 rotate_to_pos(t_node **stack, int position, int size, char stack_n)
+void	rotate_to_pos(t_node **stack, int position, int size, char stack_n)
 {
 	int	rotations;
 
@@ -104,7 +104,7 @@ void	final_rotation(t_node **stack_a)
 
 	size_a = count_nodes(*stack_a);
 	min_idx = find_min_index(*stack_a);
-	if (min_idx == -1 || min_idx == 0)
+	if (min_idx == 0)
 		return ;
 	if (min_idx * 2 < size_a)
 	{
