@@ -6,7 +6,7 @@
 /*   By: asmounci <asmounci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 16:15:00 by asmounci          #+#    #+#             */
-/*   Updated: 2026/01/13 19:16:10 by asmounci         ###   ########.fr       */
+/*   Updated: 2026/01/15 14:25:46 by asmounci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ static int	check_sign(char *str, int *i)
 	int	sign_count;
 
 	sign_count = 0;
-	if (str[*i] == '\0')
-		return (0);
 	if (str[*i] == '+' || str[*i] == '-')
 	{
 		sign_count++;
@@ -80,7 +78,7 @@ int	create_node_and_add(t_node **stack_a, char *arg)
 	if (!validate_argument(arg))
 		return (0);
 	value = ft_atoi_long(arg);
-	if (has_duplicate(*stack_a, (int)value))
+	if (has_duplicate(*stack_a, (int)value) == 1)
 		return (0);
 	new = new_node((int)value);
 	if (new == NULL)
