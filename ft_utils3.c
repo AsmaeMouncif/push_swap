@@ -19,7 +19,7 @@ void	free_array(char **array, size_t index)
 	free(array);
 }
 
-char	**extract_words(char **array, const char *s, char c)
+char	**extract_words(char **array, const char *s)
 {
 	size_t	i;
 	size_t	j;
@@ -29,7 +29,7 @@ char	**extract_words(char **array, const char *s, char c)
 	j = 0;
 	while (s[j] != '\0')
 	{
-		len = word_length(&s[j], c);
+		len = word_length(&s[j]);
 		if (len > 0)
 		{
 			array[i] = ft_substr(&s[j], 0, len);

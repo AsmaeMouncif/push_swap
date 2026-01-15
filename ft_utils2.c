@@ -68,7 +68,7 @@ char	*ft_substr(char const *s, size_t start, size_t len)
 	return (sub);
 }
 
-size_t	count_words(char const *s, char c)
+size_t	count_words(char const *s)
 {
 	size_t	i;
 	size_t	count;
@@ -77,19 +77,19 @@ size_t	count_words(char const *s, char c)
 	count = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
+		if (!ft_isspace(s[i]) && (ft_isspace(s[i + 1]) || s[i + 1] == '\0'))
 			count++;
 		i++;
 	}
 	return (count);
 }
 
-size_t	word_length(char const *s, char c)
+size_t	word_length(char const *s)
 {
 	size_t	len;
 
 	len = 0;
-	while (s[len] != '\0' && s[len] != c)
+	while (s[len] != '\0' && !ft_isspace(s[len]))
 		len++;
 	return (len);
 }

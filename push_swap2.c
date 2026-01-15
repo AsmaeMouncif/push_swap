@@ -47,7 +47,7 @@ static int	process_single_argument(t_node **stack_a, char *arg)
 	char	**split_args;
 	int		result;
 
-	split_args = ft_split(arg, ' ');
+	split_args = ft_split(arg);
 	if (split_args == NULL)
 		return (0);
 	if (count_valid_args(split_args) == 0)

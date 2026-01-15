@@ -41,16 +41,22 @@ int	ft_isdigit(int c)
 	return (c >= '0' && c <= '9');
 }
 
-char	**ft_split(char const *s, char c)
+int	ft_isspace(int c)
+{
+	return (c == ' ' || c == '\t' || c == '\n'
+		|| c == '\r' || c == '\v' || c == '\f');
+}
+
+char	**ft_split(char const *s)
 {
 	char	**array;
 	size_t	word_count;
 
 	if (s == NULL)
 		return (NULL);
-	word_count = count_words(s, c);
+	word_count = count_words(s);
 	array = malloc(sizeof(char *) * (word_count + 1));
 	if (array == NULL)
 		return (NULL);
-	return (extract_words(array, s, c));
+	return (extract_words(array, s));
 }

@@ -37,14 +37,15 @@ typedef struct s_cost
 
 long				ft_atoi_long(const char *str);
 int					ft_isdigit(int c);
-char				**ft_split(char const *s, char c);
+int					ft_isspace(int c);
+char				**ft_split(char const *s);
 size_t				ft_strlen(const char *s);
 char				*ft_strdup(const char *s);
 char				*ft_substr(char const *s, size_t start, size_t len);
-size_t				count_words(char const *s, char c);
-size_t				word_length(char const *s, char c);
+size_t				count_words(char const *s);
+size_t				word_length(char const *s);
 void				free_array(char **array, size_t index);
-char				**extract_words(char **array, const char *s, char c);
+char				**extract_words(char **array, const char *s);
 void				free_split(char **split);
 
 t_node				*new_node(int val);
